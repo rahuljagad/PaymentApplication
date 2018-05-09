@@ -1,4 +1,5 @@
 #include "tasks.h"
+#include <unistd.h>
 
 std::queue<Task*> gTasks;
 std::map<unsigned long, User *> gUsers;
@@ -12,10 +13,12 @@ void PerformTasks()
 			if ( gTasks.size() ) {
 				Task *task = gTasks.front();
 				task->doTask();
+				gTasks.pop();
 			}
 		} catch ( ... ) {
 			std::cout<<"Invalid tasks .. "<<std::endl;
 		}
+		usleep(50); //randomly waiting for few microseconds
 	}
 }
 

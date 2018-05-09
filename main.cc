@@ -8,6 +8,9 @@
 #include <memory>
 #include <queue>
 #include <string.h>
+#include <istream>
+#include <sstream>      // std::istringstream
+#include <iterator>
 
 #include <map>
 #include "User.h"
@@ -27,13 +30,28 @@ void ParseUserInput(char *input)
 	gUsers.emplace(std::make_pair(randomId , new User(randomId, username, atoi(balance.c_str()))));
 }
 
-std::vector<std::string> commands { "GetBalance usera",
-									"GetBalance userb" 
-								};
 Task* AcceptInput()
 {
-	Task *newTask;
-	return newTask;
+	std::string command;
+	//Get the request type from the user
+	std::cout<<">";
+	getline(std::cin,command);
+
+	std::istringstream commandStr{command};
+	std::vector<std::string> results(std::istream_iterator<std::string>{commandStr},
+	                                 std::istream_iterator<std::string>());
+
+	Task *task ;
+	if ( results.size() ) {
+		std::string request = results[0];
+		if ( request == "GetBalance" )  {
+			task = new GetBalance(results[1]);
+		}
+		else
+			throw EINVAL;
+	}
+
+	return task;
 }
 
 int main ( int argc, char *argv[] )
@@ -56,6 +74,11 @@ int main ( int argc, char *argv[] )
                 throw "Invalid usage";
         }
     argc -= optind, argv += optind;
+
+	if ( gUsers.empty() ) {
+		std::cout<<"No Users initialized.. Exiting"<<std::endl;
+		exit(0);
+	}
    
     std::thread taskWorker{ PerformTasks };  
     //Wait for the user input and puts it in the tasks queue
