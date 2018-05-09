@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <queue>
+#include <string.h>
 
 #include <map>
 #include "User.h"
@@ -15,7 +16,7 @@
 //These are the globals ( probably can be stored in the database somewhere as well )
 extern std::queue<Task*>		gTasks;
 extern std::mutex				gMutex;
-std::map<unsigned long, User *> gUsers;
+extern std::map<unsigned long, User *> gUsers;
 
 void ParseUserInput(char *input)
 {
@@ -26,10 +27,13 @@ void ParseUserInput(char *input)
 	gUsers.emplace(std::make_pair(randomId , new User(randomId, username, atoi(balance.c_str()))));
 }
 
+std::vector<std::string> commands { "GetBalance usera",
+									"GetBalance userb" 
+								};
 Task* AcceptInput()
 {
-	Task *newTasks = new GetBalance();
-	return newTasks;
+	Task *newTask;
+	return newTask;
 }
 
 int main ( int argc, char *argv[] )
@@ -59,15 +63,15 @@ int main ( int argc, char *argv[] )
 	while ( 1 ) {
 		try {
 
-			std::unique_lock<std::mutex> lck{gMutex};
-			gTasks.push(AcceptInput()); 
+			Task *task = AcceptInput();
+			{
+				std::unique_lock<std::mutex> lck{gMutex};
+				gTasks.push(task);
+			}
 
 		} catch ( ... )  { //TODO : more error checking
 			std::cout<<"Probably invalid tasks"<<std::endl;
 		}
-
-		std::cout<<"Input done"<<std::endl;
-		sleep(2);
 	}
 
 	taskWorker.join();	

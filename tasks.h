@@ -1,8 +1,11 @@
+#pragma once
 #include <iostream>
 #include <queue>
 #include <mutex>
 #include <thread>
 #include <chrono>
+#include <map>
+#include "User.h"
 
 void PerformTasks();
 
@@ -16,15 +19,17 @@ struct Task {
 				fTask(status)
         {}
         ~Task() {}
-        virtual bool doTask() {
+        virtual void doTask() {
             throw EINVAL;
         }
 };
 
 struct GetBalance: public Task {
+	protected:
+		unsigned long fUserId;
     public:
-        GetBalance();
-        virtual bool doTask();
+        GetBalance(std::string username);
+        virtual void doTask();
 };
 
 

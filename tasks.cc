@@ -1,6 +1,7 @@
 #include "tasks.h"
 
 std::queue<Task*> gTasks;
+std::map<unsigned long, User *> gUsers;
 std::mutex gMutex;
 
 void PerformTasks()
@@ -18,12 +19,21 @@ void PerformTasks()
 	}
 }
 
-GetBalance::GetBalance():
+GetBalance::GetBalance(std::string username):
         Task(TaskStatus::QUEUED)
-{ 
+{
+	bool found = false;
+	for ( auto item : gUsers ) {
+		if ( item.second->Username() == username ) {
+			fUserId = item.first;
+			found = true;
+			break;
+		}
+	}
+	if ( !found ) EINVAL;
 }
 
-bool GetBalance::doTask()
+void GetBalance::doTask()
 {
-	//TODO:
+	std::cout<<gUsers[fUserId]->Username()<<" Balance "<<gUsers[fUserId]->GetBalance()<<std::endl;;
 }
