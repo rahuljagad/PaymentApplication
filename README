@@ -1,10 +1,63 @@
 ## Payment Application
 ## Run the following set of steps
 # From a linux box, run the following script to generate the binary
+----------------
+	Compile
+----------------
+Run the following command (on linux box)
 ./compile.sh
-# the binary name is "venmo"
-# Example of running the program:
-#
-# venmo --user usera:50 --user userb:60
-#
-#
+
+
+----------------
+	Run
+----------------
+ venmo --user <user1>:<balance> --user <user2>:<balance> ...
+ Example:
+ ~~~~~~~
+	venmo --user usera:50 --user userb:70 --user userc:80
+The above example creates and initializes 3 users (usera, userb and userc with 50, 70 and 80 as the
+account balances respectively)
+Then you can enter the following commands:
+- GetBalance
+   Format: GetBalance <username>
+   E.g. : GetBalance usera
+
+- MakePayment
+  Format: MakePayment <userfrom> <userto> <balance>
+  E.g.    MakePayment usera userb 20
+
+---------------------
+	Design
+---------------------
+The design of the program is such that, 
+1. For Each type of operation a 'Task' is created.
+2. The Task is pushed to the queue by the 'producer' or the main thread.
+3. The Worker thread ( which can be multiple of those) pulls the task from the Queue and performs the task.
+
+---------------------
+	Sample RUN
+---------------------
+
+[ 22:29:07 ] rahuljagad $ ./venmo --user usera:50 --user userb:50 --user userc:50
+[GetBalance, MakePayment, Quit]
+>GetBalance usera
+[GetBalance, MakePayment, Quit]
+>
+usera Balance 50
+
+Invalid task.
+[GetBalance, MakePayment, Quit]
+>MakePayment usera userb 10
+[GetBalance, MakePayment, Quit]
+>GetBalance usera
+[GetBalance, MakePayment, Quit]
+>
+usera Balance 40
+
+Invalid task.
+[GetBalance, MakePayment, Quit]
+>GetBalance userb
+[GetBalance, MakePayment, Quit]
+>
+userb Balance 60
+

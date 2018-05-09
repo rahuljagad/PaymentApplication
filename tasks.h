@@ -27,12 +27,24 @@ struct Task {
         }
 };
 
+// GetBalance Task
 struct GetBalance: public Task {
 	protected:
 		unsigned long fUserId;
     public:
         GetBalance(std::string username);
         virtual void doTask();
+};
+
+// MakePayment Task
+struct MakePayment : public Task {
+	protected: 
+		unsigned	fBalance;
+		unsigned long fUserFrom;
+		unsigned long fUserTo;
+	public:
+		MakePayment(std::string userFrom, std::string userTo, unsigned balance);
+		virtual void doTask();
 };
 
 

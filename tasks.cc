@@ -62,3 +62,42 @@ void GetBalance::doTask()
 {
 	std::cout<<std::endl<<gUsers[fUserId]->Username()<<" Balance "<<gUsers[fUserId]->GetBalance()<<std::endl;;
 }
+
+/* 
+ *		Task::MakePayment
+*/
+
+/* 
+ *		Constructor
+*/
+MakePayment::MakePayment(std::string userFrom, std::string userTo, unsigned balance):
+		Task(TaskStatus::QUEUED),
+		fBalance(balance)
+{
+	bool foundF = false;
+	bool foundT = false;
+	for ( auto item : gUsers ) {
+		std::string userName = item.second->Username();
+		if ( userName == userFrom || userName == userTo ) {
+			if ( userName == userFrom ) { 
+				fUserFrom = item.first;
+				foundF = true;
+			}
+			else {
+				fUserTo = item.first;
+				foundT = true;
+			}
+		}
+	}
+
+	if ( !foundF || !foundT ) throw EINVAL;
+}
+
+
+void MakePayment::doTask()
+{
+	//TODO : way to acquire locks on users( locks sorted in some order so as to avoid deadlock )
+	//		so that we can achieve accuracy for transactions
+	gUsers[fUserFrom]->Credit(fBalance); //throws exception if not enough balance
+	gUsers[fUserTo]->Debit(fBalance);
+}

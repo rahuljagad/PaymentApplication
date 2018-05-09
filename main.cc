@@ -42,6 +42,7 @@ Task* AcceptInput()
 {
 	std::string command;
 	//Get the request type from the user
+	std::cout<<"[GetBalance, MakePayment, Quit]"<<std::endl;
 	std::cout<<">";
 	getline(std::cin,command);
 
@@ -55,10 +56,15 @@ Task* AcceptInput()
 		if ( request == "GetBalance" ) 
 			task = new GetBalance(results[1]);
 		else {
-			if ( request == "Quit" ) 
-				task = nullptr;
-			else
-				throw EINVAL;
+			if ( request == "MakePayment" ) {
+				task = new MakePayment(results[1], results[2], atoi(results[3].c_str()));
+			}
+			else {
+				if ( request == "Quit" ) 
+					task = nullptr;
+				else
+					throw EINVAL;
+			}
 		}
 	} else 
 		throw ENOTSUP;
