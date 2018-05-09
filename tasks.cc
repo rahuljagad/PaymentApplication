@@ -38,5 +38,5 @@ GetBalance::GetBalance(std::string username):
 
 void GetBalance::doTask()
 {
-	std::cout<<gUsers[fUserId]->Username()<<" Balance "<<gUsers[fUserId]->GetBalance()<<std::endl;;
+	std::cout<<std::endl<<gUsers[fUserId]->Username()<<" Balance "<<gUsers[fUserId]->GetBalance()<<std::endl;;
 }

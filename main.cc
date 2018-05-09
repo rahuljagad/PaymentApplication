@@ -39,40 +39,44 @@ Task* AcceptInput()
 
 	std::istringstream commandStr{command};
 	std::vector<std::string> results(std::istream_iterator<std::string>{commandStr},
-	                                 std::istream_iterator<std::string>());
+			std::istream_iterator<std::string>());
 
 	Task *task ;
 	if ( results.size() ) {
 		std::string request = results[0];
-		if ( request == "GetBalance" )  {
+		if ( request == "GetBalance" ) 
 			task = new GetBalance(results[1]);
+		else {
+			if ( request == "Quit" ) 
+				task = nullptr;
+			else
+				throw EINVAL;
 		}
-		else
-			throw EINVAL;
-	}
+	} else 
+		throw ENOTSUP;
 
 	return task;
 }
 
 int main ( int argc, char *argv[] )
 {
-
     //Parse the input that is sent on the command line
     static const struct option options[] = {
         { "user", required_argument, NULL, 'u' }
     };
 
-    for (
-            int option;
-            (option = getopt_long(argc, const_cast<char* const*>(argv), "u:", options, NULL)) != -1;
-        )
-        switch (option) {
-            case 'u':
-                ParseUserInput(optarg);
-                break;
-            default:
-                throw "Invalid usage";
-        }
+	for (
+			int option;
+			(option = getopt_long(argc, const_cast<char* const*>(argv), "u:", options, NULL)) != -1;
+		) {
+		switch (option) {
+			case 'u':
+				ParseUserInput(optarg);
+				break;
+			default:
+				throw "Invalid usage";
+		}
+	}
     argc -= optind, argv += optind;
 
 	if ( gUsers.empty() ) {
@@ -80,23 +84,25 @@ int main ( int argc, char *argv[] )
 		exit(0);
 	}
    
+	//Tasks worker pulls the tasks from the queue and does the tasks
+	//There can be multiple worker threads, working on the queue of performing the task
     std::thread taskWorker{ PerformTasks };  
-    //Wait for the user input and puts it in the tasks queue
-    //Tasks worker then pulls the tasks from the queue and does the tasks
+
+	//Wait for the user input and puts it in the tasks queue
 	while ( 1 ) {
 		try {
-
+			//Accept the user command on the command-line
 			Task *task = AcceptInput();
+			if ( !task ) break;
 			{
+				//lock the queue before puting the task in the queue
 				std::unique_lock<std::mutex> lck{gMutex};
-				gTasks.push(task);
+				gTasks.push(task);			//Pushing the task to the back of queue
 			}
-
 		} catch ( ... )  { //TODO : more error checking
-			std::cout<<"Probably invalid tasks"<<std::endl;
+			std::cout<<"Invalid task."<<std::endl;
 		}
 	}
 
 	taskWorker.join();	
-
 }
