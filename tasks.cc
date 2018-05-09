@@ -50,7 +50,8 @@ GetBalance::GetBalance(std::string username):
 			break;
 		}
 	}
-	if ( !found ) EINVAL;
+
+	if ( !found ) throw EINVAL;
 }
 
 /* 

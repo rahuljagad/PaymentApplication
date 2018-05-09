@@ -4,7 +4,7 @@
  *		Compiling:
  *			./compile.sh
  *		Running:
- *			./payment --user usera:50 --user userb:60
+ *			./venmo --user usera:50 --user userb:60
  * */
 #include <thread>
 #include <iostream>
