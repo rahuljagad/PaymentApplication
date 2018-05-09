@@ -1,12 +1,29 @@
 #include "tasks.h"
 
-GetBalance::GetBalance(uint32_t userid):
-        fUserId(userid),
-        Tasks(QUEUE)
+std::queue<Task*> gTasks;
+std::mutex gMutex;
+
+void PerformTasks()
+{
+	while ( 1 ) {
+		try {
+			std::unique_lock<std::mutex> lck{gMutex};
+			if ( gTasks.size() ) {
+				Task *task = gTasks.front();
+				task->doTask();
+			}
+		} catch ( ... ) {
+			std::cout<<"Invalid tasks .. "<<std::endl;
+		}
+	}
+}
+
+GetBalance::GetBalance():
+        Task(TaskStatus::QUEUED)
 { 
 }
 
-void GetBalance::doTasks()
+bool GetBalance::doTask()
 {
-    gUsers[userId].GetBalance();
+	//TODO:
 }

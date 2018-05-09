@@ -1,5 +1,10 @@
 #include <iostream>
 #include <queue>
+#include <mutex>
+#include <thread>
+#include <chrono>
+
+void PerformTasks();
 
 // Base class that represents the type of tasks 
 enum class TaskStatus { QUEUED, STARTED, DONE };
@@ -8,20 +13,18 @@ struct Task {
         TaskStatus fTask;
     public:
         Task(TaskStatus status):
-            fTask(status)
+				fTask(status)
         {}
-        ~Tasks() {}
-        virtual bool doTasks() {
+        ~Task() {}
+        virtual bool doTask() {
             throw EINVAL;
         }
 };
 
 struct GetBalance: public Task {
-    protected:
-        uint32_t fUserId;
-    protected:
-        GetBalance(uint32_t userid);
-        virtual bool doTasks();
+    public:
+        GetBalance();
+        virtual bool doTask();
 };
 
 
