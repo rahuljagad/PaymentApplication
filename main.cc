@@ -1,3 +1,11 @@
+/* 
+ *		Venmo type payment application program
+ *		Way to run the program:
+ *		Compiling:
+ *			./compile.sh
+ *		Running:
+ *			./payment --user usera:50 --user userb:60
+ * */
 #include <thread>
 #include <iostream>
 #include <unistd.h>
@@ -93,7 +101,10 @@ int main ( int argc, char *argv[] )
 		try {
 			//Accept the user command on the command-line
 			Task *task = AcceptInput();
+			
 			if ( !task ) break;
+
+			//scope
 			{
 				//lock the queue before puting the task in the queue
 				std::unique_lock<std::mutex> lck{gMutex};

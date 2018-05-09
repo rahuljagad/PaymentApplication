@@ -1,3 +1,8 @@
+/*  
+ *  Tasks : Defines all types of tasks associated to payment application
+ *
+*/
+
 #include "tasks.h"
 #include <unistd.h>
 
@@ -5,6 +10,10 @@ std::queue<Task*> gTasks;
 std::map<unsigned long, User *> gUsers;
 std::mutex gMutex;
 
+//		PerformTasks()
+//Runs as a seperate threads, pulling out tasks out of the queue and
+//calling the doTasks, which does the actual work of performing the operation
+//
 void PerformTasks()
 {
 	while ( 1 ) {
@@ -22,6 +31,14 @@ void PerformTasks()
 	}
 }
 
+
+/* 
+ *		Task::GetBalance
+*/
+
+/* 
+ *		Constructor
+*/
 GetBalance::GetBalance(std::string username):
         Task(TaskStatus::QUEUED)
 {
@@ -36,6 +53,10 @@ GetBalance::GetBalance(std::string username):
 	if ( !found ) EINVAL;
 }
 
+/* 
+ *		GetBalance::doTask
+ * Performs the task of looking up the balance of the user.
+*/
 void GetBalance::doTask()
 {
 	std::cout<<std::endl<<gUsers[fUserId]->Username()<<" Balance "<<gUsers[fUserId]->GetBalance()<<std::endl;;
