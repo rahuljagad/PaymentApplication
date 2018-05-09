@@ -1,5 +1,10 @@
 ## Payment Application
 ## Run the following set of steps
-g++ -c -std=c++11 User.cc
-g++  --std=c++11 -c tasks.cc
-g++ -o payment --std=c++11 -lpthread User.o tasks.o main.cc
+# From a linux box, run the following script to generate the binary
+./compile.sh
+# the binary name is "payment"
+# Example of running the program:
+#
+# payment --user usera:50 --user userb:60
+#
+#
