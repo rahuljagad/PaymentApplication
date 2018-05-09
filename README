@@ -2,9 +2,9 @@
 ## Run the following set of steps
 # From a linux box, run the following script to generate the binary
 ./compile.sh
-# the binary name is "payment"
+# the binary name is "venmo"
 # Example of running the program:
 #
-# payment --user usera:50 --user userb:60
+# venmo --user usera:50 --user userb:60
 #
 #
