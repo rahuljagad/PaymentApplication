@@ -19,6 +19,7 @@
 #include <istream>
 #include <sstream>      // std::istringstream
 #include <iterator>
+#include <vector>
 
 #include <map>
 #include "User.h"
