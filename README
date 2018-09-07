@@ -58,7 +58,7 @@ usera Balance 40
 Invalid task.
 [GetBalance, MakePayment, Quit]
 >GetBalance userb
-[GetBalance, MakePayment, Quit]
+   [GetBalance, MakePayment, Quit]
 >
 userb Balance 60
 
