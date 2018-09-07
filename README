@@ -3,14 +3,13 @@
 # From a linux Box(Trial11 & Trial2 & Trial3 & Trial4), run the following script to generate the binary
 # All information about the project
 ----------------
-	Compile
+   Compile
 ----------------
 Run the following command (on linux box)
 ./compile.sh <-- No parameters are needed
 
-
 ----------------
-	Run
+   Run
 ----------------
  venmo --user <user1>:<balance> --user <user2>:<balance> ...
  Example:
@@ -28,7 +27,7 @@ Then you can enter the following commands:
   E.g.    MakePayment usera userb 20
 
 ---------------------
-	Design
+  Design
 ---------------------
 The design of the program is such that, 
 1. For Each type of operation a 'Task' is created.
@@ -36,7 +35,7 @@ The design of the program is such that,
 3. The Worker thread ( which can be multiple of those) pulls the task from the Queue and performs the task.
 
 ---------------------
-	Sample RUN
+  Sample RUN
 ---------------------
 
 [ 22:29:07 ] rahuljagad $ ./venmo --user usera:50 --user userb:50 --user userc:50
