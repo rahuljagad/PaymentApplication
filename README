@@ -5,7 +5,7 @@
 	Compile
 ----------------
 Run the following command (on linux box)
-./compile.sh
+./compile.sh <-- No parameters are needed
 
 
 ----------------
