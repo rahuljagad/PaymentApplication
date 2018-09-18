@@ -52,6 +52,7 @@ Task* AcceptInput()
 {
 	std::string command;
 	//Get the request type from the user
+	//We should treat this as some type of class itself
 	std::cout<<"[GetBalance, MakePayment, Quit]"<<std::endl;
 	std::cout<<">";
 	getline(std::cin,command);
