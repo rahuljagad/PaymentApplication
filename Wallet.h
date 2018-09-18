@@ -3,6 +3,7 @@
 class Wallet {
     public:
         Wallet();
+	~Wallet(){ }
 
     protected:
         uint64_t fWalletId; //unique wallet id.
