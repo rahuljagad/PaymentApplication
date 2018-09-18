@@ -18,8 +18,6 @@ enum class TaskStatus { QUEUED, STARTED, DONE };
 //type of tasks
 template<typename T>
 struct Task {
-    protected:
-        TaskStatus fTask;
     public:
         Task(TaskStatus status):
 				fTask(status)
@@ -28,6 +26,9 @@ struct Task {
         virtual void doTask() {
             throw EINVAL;
         }
+
+    protected:
+        TaskStatus fTask;
 };
 
 // GetBalance Task
