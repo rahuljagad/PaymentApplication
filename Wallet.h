@@ -1,5 +1,6 @@
 #include <iostream>
 
+//Is there a reason to templatize this class ?
 class Wallet {
     public:
         Wallet();
