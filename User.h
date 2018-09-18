@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include <string>
-//#include "Wallet.h"
 
 class User {
 	public:
+		//Constructor (no default constructor)
 		User(unsigned long, std::string username, unsigned balance);
 		unsigned GetBalance();
 		unsigned long GetUserId() { return fUserId; }
