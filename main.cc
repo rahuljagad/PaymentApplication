@@ -26,8 +26,8 @@
 
 //These are the globals ( probably can be stored in the database somewhere as well )
 extern std::queue<Task*>		gTasks;
-extern std::mutex				gMutex;
-extern std::map<unsigned long, User *> gUsers;
+extern std::mutex			gMutex;
+extern std::map<unsigned long, User *> 	gUsers;
 
 
 /* 
