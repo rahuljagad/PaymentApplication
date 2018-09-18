@@ -14,6 +14,8 @@ void PerformTasks();
 
 // Base class that represents the type of tasks 
 enum class TaskStatus { QUEUED, STARTED, DONE };
+//Maybe this tasks should be templatized to indicate the 
+//type of tasks
 struct Task {
     protected:
         TaskStatus fTask;
