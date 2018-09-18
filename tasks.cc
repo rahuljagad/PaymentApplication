@@ -17,6 +17,7 @@ std::mutex gMutex;
 //
 void PerformTasks()
 {
+	  //Break when all the tasks are done.
 	while ( 1 ) {
 		try {
 			std::unique_lock<std::mutex> lck{gMutex};
