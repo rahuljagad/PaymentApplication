@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+//Represents the user object
 class User {
 	public:
 		//Constructor (no default constructor)
