@@ -45,6 +45,9 @@ void ParseUserInput(char *input)
 	gUsers.emplace(std::make_pair(randomId , new User(randomId, username, atoi(balance.c_str()))));
 }
 
+/* 
+	Accept the input from the user and converts it onto the tasks
+*/
 Task* AcceptInput()
 {
 	std::string command;
