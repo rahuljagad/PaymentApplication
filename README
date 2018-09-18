@@ -11,6 +11,7 @@
 ----------------
 Run the following command (on linux box)
 ./compile.sh <-- No parameters are needed
+# Above command is used for compilation
 
 ----------------
    Run
