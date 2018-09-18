@@ -30,6 +30,7 @@
 extern std::queue<Task*>		gTasks;
 extern std::mutex			gMutex;
 extern std::map<unsigned long, User *> 	gUsers;
+//Hope no compilation error
 
 
 /* 
