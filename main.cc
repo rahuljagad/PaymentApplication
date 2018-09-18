@@ -6,6 +6,7 @@
  *		Running:
  *			./venmo --user usera:50 --user userb:60
  * */
+//System headers on the top
 #include <thread>
 #include <iostream>
 #include <unistd.h>
@@ -19,8 +20,9 @@
 #include <istream>
 #include <sstream>      // std::istringstream
 #include <iterator>
-
 #include <map>
+
+//Project specific headers down below 
 #include "User.h"
 #include "tasks.h"
 
