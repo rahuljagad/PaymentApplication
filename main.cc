@@ -29,6 +29,10 @@ extern std::queue<Task*>		gTasks;
 extern std::mutex				gMutex;
 extern std::map<unsigned long, User *> gUsers;
 
+
+/* 
+	Parses the input parameter to get the list of users
+*/
 void ParseUserInput(char *input)
 {
 	std::string inputString (input);
