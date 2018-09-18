@@ -16,7 +16,7 @@ Run the following command (on linux box)
    Run
 ----------------
  venmo --user <user1>:<balance> --user <user2>:<balance> ...
- Example:
+ Example: (We can add more comments later)
  ~~~~~~~
 	venmo --user usera:50 --user userb:70 --user userc:80
 The above example creates and initializes 3 users (usera, userb and userc with 50, 70 and 80 as the
