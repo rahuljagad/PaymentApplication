@@ -16,7 +16,6 @@ void PerformTasks();
 enum class TaskStatus { QUEUED, STARTED, DONE };
 //Maybe this tasks should be templatized to indicate the 
 //type of tasks
-template<typename T>
 struct Task {
     public:
         Task(TaskStatus status):
