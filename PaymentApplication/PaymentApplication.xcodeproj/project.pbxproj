@@ -6,10 +6,33 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXFileReference section */
+		F5B744B1215ECD2E00604E86 /* Wallet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Wallet.h; path = ../Wallet.h; sourceTree = "<group>"; };
+		F5B744B2215ECD2E00604E86 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = User.h; path = ../User.h; sourceTree = "<group>"; };
+		F5B744B3215ECD2E00604E86 /* User.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = User.cc; path = ../User.cc; sourceTree = "<group>"; };
+		F5B744B4215ECD2E00604E86 /* tasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tasks.h; path = ../tasks.h; sourceTree = "<group>"; };
+		F5B744B5215ECD2E00604E86 /* transaction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = transaction.h; path = ../transaction.h; sourceTree = "<group>"; };
+		F5B744B6215ECD2E00604E86 /* Wallet.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Wallet.cc; path = ../Wallet.cc; sourceTree = "<group>"; };
+		F5B744B7215ECD2E00604E86 /* tasks.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = tasks.cc; path = ../tasks.cc; sourceTree = "<group>"; };
+		F5B744B8215ECD2E00604E86 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
+		F5B744B9215ECD3800604E86 /* main.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cc; path = ../main.cc; sourceTree = "<group>"; };
+		F5B744BA215ECD3800604E86 /* compile.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = compile.sh; path = ../compile.sh; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		F5B744AA215ECCDF00604E86 = {
 			isa = PBXGroup;
 			children = (
+				F5B744BA215ECD3800604E86 /* compile.sh */,
+				F5B744B9215ECD3800604E86 /* main.cc */,
+				F5B744B8215ECD2E00604E86 /* README */,
+				F5B744B7215ECD2E00604E86 /* tasks.cc */,
+				F5B744B4215ECD2E00604E86 /* tasks.h */,
+				F5B744B5215ECD2E00604E86 /* transaction.h */,
+				F5B744B3215ECD2E00604E86 /* User.cc */,
+				F5B744B2215ECD2E00604E86 /* User.h */,
+				F5B744B6215ECD2E00604E86 /* Wallet.cc */,
+				F5B744B1215ECD2E00604E86 /* Wallet.h */,
 			);
 			sourceTree = "<group>";
 		};
