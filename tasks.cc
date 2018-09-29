@@ -103,3 +103,47 @@ void MakePayment::doTask()
 	gUsers[fUserFrom]->Credit(fBalance); //throws exception if not enough balance
 	gUsers[fUserTo]->Debit(fBalance);
 }
+
+/*
+        ** GenericTask **
+ */
+// Constructor
+template<typename TaskType>
+GenericTask<TaskType>::GenericTask(TaskType &task):
+    fTask(task)
+{}
+
+// Destructor
+template<typename TaskType>
+GenericTask<TaskType>::~GenericTask()
+{}
+
+// Functor to call the specific task
+template<typename TaskType>
+void GenericTask<TaskType>::operator()()
+{
+    //call the functor of the class?
+    fTask();
+}
+
+
+/*
+        ** DoPayment **
+ */
+DoPayment::DoPayment(std::string userFrom, std::string userTo, unsigned balance):
+    fUserFrom(userFrom),
+    fUserTo(userTo),
+    fBalance(balance)
+{
+    //TODO: more initialization if needed.
+}
+
+DoPayment::~DoPayment()
+{
+
+}
+
+void DoPayment::operator()()
+{
+}
+

@@ -61,15 +61,17 @@ Task* AcceptInput()
 	std::vector<std::string> results(std::istream_iterator<std::string>{commandStr},
 			std::istream_iterator<std::string>());
 
-	Task *task ;
 	if ( results.size() ) {
 		std::string request = results[0];
-		if ( request == "GetBalance" ) 
-			task = new GetBalance(results[1]);
+        if ( request == "GetBalance" ) {
+            //TODO: Templatized
+        }
 		else {
-			if ( request == "MakePayment" ) {
-				task = new MakePayment(results[1], results[2], atoi(results[3].c_str()));
-			}
+            if ( request == "MakePayment" ) {
+                //TODO: Convert this into a single line statement ?
+                DoPayment payment{"user1", "user2", 50 };
+                GenericTask<DoPayment> task { payment };
+            }
 			else {
 				if ( request == "Quit" ) 
 					task = nullptr;
@@ -104,6 +106,7 @@ int main ( int argc, char *argv[] )
 	}
     argc -= optind, argv += optind;
 
+    //Check for invalid input ?
 	if ( gUsers.empty() ) {
 		std::cout<<"No Users initialized.. Exiting"<<std::endl;
 		exit(0);

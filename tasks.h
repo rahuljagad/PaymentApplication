@@ -30,6 +30,7 @@ struct Task {
         TaskStatus fTask;
 };
 
+
 // GetBalance Task
 struct GetBalance: public Task {
 	protected:
@@ -50,4 +51,32 @@ struct MakePayment : public Task {
 		virtual void doTask();
 };
 
+/*
+        ** Generic Task **
+*/
 
+template<typename TaskType>
+class GenericTask {
+public:
+    GenericTask(TaskType &);
+    ~GenericTask();
+    void operator()();
+    
+private:
+    using TaskT = TaskType;
+    TaskT   fTask;
+};
+
+// Do Payment Task
+struct DoPayment {
+public:
+    explicit DoPayment(std::string userFrom, std::string userTo, unsigned balance);
+    ~DoPayment();
+    void operator()();
+
+private:
+    std::string fUserFrom;
+    std::string fUserTo;
+    unsigned    fBalance;
+    
+};
