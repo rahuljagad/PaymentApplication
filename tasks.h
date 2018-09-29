@@ -54,9 +54,14 @@ struct MakePayment : public Task {
 /*
         ** Generic Task **
 */
+class BaseGenericType {
+    //Calculate statistics here ?
+public:
+    BaseGenericType();
+};
 
 template<typename TaskType>
-class GenericTask {
+class GenericTask: public BaseGenericType {
 public:
     GenericTask(TaskType &);
     ~GenericTask();

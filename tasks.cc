@@ -7,7 +7,7 @@
 #include "tasks.h"
 #include <unistd.h>
 
-std::queue<Task*> gTasks;
+std::queue<<#class _Tp#>>
 std::map<unsigned long, User *> gUsers;
 std::mutex gMutex;
 
