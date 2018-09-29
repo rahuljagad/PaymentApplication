@@ -64,7 +64,8 @@ Task* AcceptInput()
 	if ( results.size() ) {
 		std::string request = results[0];
         if ( request == "GetBalance" ) {
-            //TODO: Templatized
+            CheckBalance balance("user1");
+            GenericTask<CheckBalance> task(balance);
         }
 		else {
             if ( request == "MakePayment" ) {
@@ -72,17 +73,10 @@ Task* AcceptInput()
                 DoPayment payment{"user1", "user2", 50 };
                 GenericTask<DoPayment> task { payment };
             }
-			else {
-				if ( request == "Quit" ) 
-					task = nullptr;
-				else
-					throw EINVAL;
-			}
 		}
-	} else 
-		throw ENOTSUP;
-
-	return task;
+	}
+    
+    return nullptr;
 }
 
 int main ( int argc, char *argv[] )

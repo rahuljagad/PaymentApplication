@@ -147,3 +147,13 @@ void DoPayment::operator()()
 {
 }
 
+/*
+       ** CheckBalance **
+ */
+CheckBalance::CheckBalance(std::string user):
+            fUser(user)
+{}
+
+void CheckBalance::operator()()
+{
+}

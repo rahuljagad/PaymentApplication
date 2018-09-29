@@ -80,3 +80,10 @@ private:
     unsigned    fBalance;
     
 };
+
+struct CheckBalance {
+    std::string fUser;
+public:
+    explicit CheckBalance(std::string user);
+    void operator()();
+};
