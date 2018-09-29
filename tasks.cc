@@ -150,10 +150,12 @@ void DoPayment::operator()()
 /*
        ** CheckBalance **
  */
+// Constructor
 CheckBalance::CheckBalance(std::string user):
             fUser(user)
 {}
 
+// Functor.
 void CheckBalance::operator()()
 {
 }
