@@ -12,6 +12,7 @@
 
 void PerformTasks();
 
+/*
 // Base class that represents the type of tasks 
 enum class TaskStatus { QUEUED, STARTED, DONE };
 //Maybe this tasks should be templatized to indicate the 
@@ -51,21 +52,25 @@ struct MakePayment : public Task {
 		virtual void doTask();
 };
 
+*/
+
 /*
         ** Generic Task **
 */
-class BaseGenericType {
+class GenericTask {
     //Calculate statistics here ?
 public:
-    BaseGenericType();
+    GenericTask() {}
+    virtual void operator()()  = 0;
 };
 
 template<typename TaskType>
-class GenericTask: public BaseGenericType {
+class Task: public GenericTask {
 public:
-    GenericTask(TaskType &);
-    ~GenericTask();
-    void operator()();
+    Task(TaskType);
+    ~Task();
+    
+    virtual void operator()();
     
 private:
     using TaskT = TaskType;
@@ -75,9 +80,9 @@ private:
 // Do Payment Task
 struct DoPayment {
 public:
-    explicit DoPayment(std::string userFrom, std::string userTo, unsigned balance);
+    DoPayment(std::string userFrom, std::string userTo, unsigned balance);
     ~DoPayment();
-    void operator()();
+    virtual void operator()();
 
 private:
     std::string fUserFrom;
@@ -89,6 +94,6 @@ private:
 struct CheckBalance {
     std::string fUser;
 public:
-    explicit CheckBalance(std::string user);
+    CheckBalance(std::string user);
     void operator()();
 };

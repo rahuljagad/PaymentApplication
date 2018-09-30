@@ -27,11 +27,10 @@
 #include "tasks.h"
 
 //These are the globals ( probably can be stored in the database somewhere as well )
-extern std::queue<Task*>		gTasks;
+extern std::queue<std::unique_ptr<GenericTask>>		gTasks;
 extern std::mutex			gMutex;
 extern std::map<unsigned long, User *> 	gUsers;
 //Hope no compilation error
-
 
 /* 
 	Parses the input parameter to get the list of users
@@ -48,7 +47,7 @@ void ParseUserInput(char *input)
 /* 
 	Accept the input from the user and converts it onto the tasks
 */
-Task* AcceptInput()
+void AcceptInput()
 {
 	std::string command;
 	//Get the request type from the user
@@ -64,19 +63,14 @@ Task* AcceptInput()
 	if ( results.size() ) {
 		std::string request = results[0];
         if ( request == "GetBalance" ) {
-            CheckBalance balance("user1");
-            GenericTask<CheckBalance> task(balance);
+            gTasks.push(std::unique_ptr<Task<CheckBalance>>{new Task<CheckBalance>{"user1"}});
         }
 		else {
             if ( request == "MakePayment" ) {
-                //TODO: Convert this into a single line statement ?
-                DoPayment payment{"user1", "user2", 50 };
-                GenericTask<DoPayment> task { payment };
+                gTasks.push(std::unique_ptr<Task<DoPayment>>{new Task<DoPayment>{"user1","user2",50}});
             }
 		}
 	}
-    
-    return nullptr;
 }
 
 int main ( int argc, char *argv[] )
@@ -114,16 +108,8 @@ int main ( int argc, char *argv[] )
 	while ( 1 ) {
 		try {
 			//Accept the user command on the command-line
-			Task *task = AcceptInput();
-			
-			if ( !task ) break;
-
-			//scope
-			{
-				//lock the queue before puting the task in the queue
-				std::unique_lock<std::mutex> lck{gMutex};
-				gTasks.push(task);			//Pushing the task to the back of queue
-			}
+			AcceptInput();
+            
 		} catch ( ... )  { //TODO : more error checking
 			std::cout<<"Invalid task."<<std::endl;
 		}

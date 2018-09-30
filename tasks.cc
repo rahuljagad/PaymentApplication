@@ -7,9 +7,11 @@
 #include "tasks.h"
 #include <unistd.h>
 
+/*
 std::queue<<#class _Tp#>>
 std::map<unsigned long, User *> gUsers;
 std::mutex gMutex;
+ */
 
 //		PerformTasks()
 //Runs as a seperate threads, pulling out tasks out of the queue and
@@ -109,20 +111,20 @@ void MakePayment::doTask()
  */
 // Constructor
 template<typename TaskType>
-GenericTask<TaskType>::GenericTask(TaskType &task):
+Task<TaskType>::Task(TaskType &task):
     fTask(task)
 {}
 
 // Destructor
 template<typename TaskType>
-GenericTask<TaskType>::~GenericTask()
+Task<TaskType>::~Task()
 {}
 
 // Functor to call the specific task
 template<typename TaskType>
-void GenericTask<TaskType>::operator()()
+void Task<TaskType>::operator()()
 {
-    //call the functor of the class?
+    //do the task
     fTask();
 }
 
