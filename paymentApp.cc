@@ -9,8 +9,14 @@
 #include "paymentApp.h"
 
 template<typename App>
-App::Executor<App>::Executor()
-fApp { new App ( args ) }
+Framework::Executor<App>::Executor():
+   fApp { new App() }
 {
-    std::thread thread { fApp() };
+    fThread = std::thread { fApp() };
+}
+
+template<typename App>
+Framework::Executor<App>::~Executor()
+{
+    fThread.join();
 }
