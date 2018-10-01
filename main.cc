@@ -25,11 +25,12 @@
 //Project specific headers down below 
 #include "User.h"
 #include "tasks.h"
+#include "paymentApp.h"
 
 //These are the globals ( probably can be stored in the database somewhere as well )
 extern std::queue<std::unique_ptr<GenericTask>>		gTasks;
-extern std::mutex			gMutex;
-extern std::map<unsigned long, User *> 	gUsers;
+extern std::mutex			                        gMutex;
+extern std::map<unsigned long, User *> 	            gUsers;
 //Hope no compilation error
 
 /* 
@@ -49,71 +50,12 @@ void ParseUserInput(char *input)
 */
 void AcceptInput()
 {
-	std::string command;
-	//Get the request type from the user
-	//We should treat this as some type of class itself
-	std::cout<<"[GetBalance, MakePayment, Quit]"<<std::endl;
-	std::cout<<">";
-	getline(std::cin,command);
-
-	std::istringstream commandStr{command};
-	std::vector<std::string> results(std::istream_iterator<std::string>{commandStr},
-			std::istream_iterator<std::string>());
-
-	if ( results.size() ) {
-		std::string request = results[0];
-        if ( request == "GetBalance" ) {
-            gTasks.push(std::unique_ptr<Task<CheckBalance>>{new Task<CheckBalance>{"user1"}});
-        }
-		else {
-            if ( request == "MakePayment" ) {
-                gTasks.push(std::unique_ptr<Task<DoPayment>>{new Task<DoPayment>{"user1","user2",50}});
-            }
-		}
-	}
+    // List of tasks ?
+    gTasks.push(std::unique_ptr<Task<CheckBalance>>{new Task<CheckBalance>{"user1"}});
+    gTasks.push(std::unique_ptr<Task<DoPayment>>{new Task<DoPayment>{"user1","user2",50}});
 }
 
 int main ( int argc, char *argv[] )
 {
-    //Parse the input that is sent on the command line
-    static const struct option options[] = {
-        { "user", required_argument, NULL, 'u' }
-    };
-
-	for (
-			int option;
-			(option = getopt_long(argc, const_cast<char* const*>(argv), "u:", options, NULL)) != -1;
-		) {
-		switch (option) {
-			case 'u':
-				ParseUserInput(optarg);
-				break;
-			default:
-				throw "Invalid usage";
-		}
-	}
-    argc -= optind, argv += optind;
-
-    //Check for invalid input ?
-	if ( gUsers.empty() ) {
-		std::cout<<"No Users initialized.. Exiting"<<std::endl;
-		exit(0);
-	}
-   
-	//Tasks worker pulls the tasks from the queue and does the tasks
-	//There can be multiple worker threads, working on the queue of performing the task
-    std::thread taskWorker{ PerformTasks };  
-
-	//Wait for the user input and puts it in the tasks queue
-	while ( 1 ) {
-		try {
-			//Accept the user command on the command-line
-			AcceptInput();
-            
-		} catch ( ... )  { //TODO : more error checking
-			std::cout<<"Invalid task."<<std::endl;
-		}
-	}
-
-	taskWorker.join();	
+    //TODO: Implement the whole application
 }
