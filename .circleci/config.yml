@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
           
-      - run: echo "Build job ran successfully."
+      - run: curl -f --header 'x-rel-access-token:86de0e93ad254ecd4ff505df7878d2e7' 'https://testdomain.relyance.ai/api/download?type=image' --output relyance_inspector.tar.gz && docker load --input relyance_inspector.tar.gz && docker run --rm -v `pwd`:/repo relyance_inspector:latest && docker image rm relyance_inspector:latest
 
 workflows:
   version: 2.1
